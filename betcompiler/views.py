@@ -1,0 +1,20 @@
+from django.shortcuts import render
+
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+from betcompiler import main
+# Create your views here.
+
+@api_view(['GET'])
+def match_list(request):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        if request.GET.get('competition'):
+            obj=main.oddsmatrix()
+            obj.compileOdds(1)
+            return Response(obj.maxodds.to_json())
+        return Response(None)
