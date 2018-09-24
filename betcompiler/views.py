@@ -17,5 +17,5 @@ def match_list(request):
         if request.GET.get('competition'):
             obj=main.oddsmatrix()
             obj.compileOdds(1)
-            return Response(json.dumps(json.loads(obj.maxodds.to_json())))
+            return Response(obj.maxodds.to_json(orient="records"))
         return Response(None)
