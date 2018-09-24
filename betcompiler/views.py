@@ -1,4 +1,5 @@
 from django.shortcuts import render
+import json
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -16,5 +17,5 @@ def match_list(request):
         if request.GET.get('competition'):
             obj=main.oddsmatrix()
             obj.compileOdds(1)
-            return Response(obj.maxodds.to_json().replace('"',"'"))
+            return Response(json.dumps(obj.maxodds.to_dict()))
         return Response(None)
